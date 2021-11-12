@@ -1,0 +1,6 @@
+%{
+  "codepagex": {:git, "https://github.com/stubgun/codepagex.git", "daff4882c3e096ba32d7c549a37922d3563c28d8", []},
+  "decimal": {:hex, :decimal, "1.8.1", "a4ef3f5f3428bdbc0d35374029ffcf4ede8533536fa79896dd450168d9acdf3c", [:mix], [], "hexpm", "3cb154b00225ac687f6cbd4acc4b7960027c757a5152b369923ead9ddbca7aec"},
+  "ecto": {:hex, :ecto, "3.4.0", "a7a83ab8359bf816ce729e5e65981ce25b9fc5adfc89c2ea3980f4fed0bfd7c1", [:mix], [{:decimal, "~> 1.6 or ~> 2.0", [hex: :decimal, repo: "hexpm", optional: false]}, {:jason, "~> 1.0", [hex: :jason, repo: "hexpm", optional: true]}], "hexpm", "5eed18252f5b5bbadec56a24112b531343507dbe046273133176b12190ce19cc"},
+  "slugger": {:hex, :slugger, "0.3.0", "efc667ab99eee19a48913ccf3d038b1fb9f165fa4fbf093be898b8099e61b6ed", [:mix], [], "hexpm", "20d0ded0e712605d1eae6c5b4889581c3460d92623a930ddda91e0e609b5afba"},
+}
