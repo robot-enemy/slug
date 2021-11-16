@@ -23,7 +23,7 @@ defmodule Slug.MixProject do
       # {:codepagex, github: "tallakt/codepagex"},
       # {:codepagex, github: "stubgun/codepagex"},
       {:codepagex, "~> 0.1.6"},
-      {:ecto, "~> 3.2"},
+      {:ecto, "~> 3.7"},
       {:slugger, "~> 0.3"},
     ]
   end
