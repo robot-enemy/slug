@@ -2,7 +2,6 @@ defmodule Slug do
   @moduledoc """
   Slugify a string.
   """
-  import Codepagex, only: [replace_nonexistent: 1, to_string: 3]
   require Logger
   alias Ecto.Changeset
 
@@ -27,17 +26,18 @@ defmodule Slug do
   def slugify(nil), do: nil
   def slugify(""), do: nil
   def slugify(text) when is_binary(text) do
-    text
-    |> replace_characters()
-    |> Slugger.slugify_downcase()
-  rescue
-    UnicodeConversionError ->
+    if String.valid?(text) do
+      text
+      |> replace_characters()
+      |> Slugger.slugify_downcase()
+    else
       Logger.error "Problem slugifying text: #{inspect text}"
 
       text
-      |> replace_characters()
       |> remove_illegal_characters()
+      |> replace_characters()
       |> Slugger.slugify_downcase()
+    end
   end
 
   defp replace_characters(text) do
@@ -46,11 +46,21 @@ defmodule Slug do
     |> String.replace(~r/[£$€'‘’]/u, "")
   end
 
+  # NOTE: This is an incredibly naïve function that most likely won't result in
+  # an accurate conversion.  It's only purpose is to convert the characters into
+  # unicode to avoid errors.
+  #
+  # Ideally, text should be converted into unicode before reaching this
+  # function, this is just a last desperate attempt to avoid an error.
   defp remove_illegal_characters(text) do
-    case to_string(text, :iso_8859_1, replace_nonexistent("_")) do
-      {:ok, new_text, _} -> new_text
-      {:error, _, _}     -> text
+    for char <- String.graphemes(text) do
+      if String.valid?(char) do
+        String.replace(char, ~r/[^a-zA-Z0-9\-\_\s]/, "")
+      else
+        ""
+      end
     end
+    |> List.to_string()
   end
 
   @doc """

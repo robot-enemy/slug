@@ -19,7 +19,12 @@ defmodule SlugTest do
     test "when given an invalid string, attempts to remove the invalid chars" do
       invalid_byte_sequence = "\x80\x81"
       assert capture_log(fn ->
-        assert Slug.slugify(invalid_byte_sequence) == <<194, 128, 194, 129>>
+        assert Slug.slugify(invalid_byte_sequence) == ""
+      end) =~ "Problem slugifying text"
+
+      invalid_byte_sequence = "EMMANUEL PE\xc3\u0192\xc2\u2018A GOMEZ PORTUGAL"
+      assert capture_log(fn ->
+        assert Slug.slugify(invalid_byte_sequence) == "emmanuel-pea-gomez-portugal"
       end) =~ "Problem slugifying text"
     end
 

@@ -20,9 +20,6 @@ defmodule Slug.MixProject do
 
   defp deps do
     [
-      # {:codepagex, github: "tallakt/codepagex"},
-      # {:codepagex, github: "stubgun/codepagex"},
-      {:codepagex, "~> 0.1.6"},
       {:ecto, "~> 3.7"},
       {:slugger, "~> 0.3"},
     ]
