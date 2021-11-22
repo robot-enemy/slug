@@ -47,11 +47,11 @@ defmodule Slug do
   end
 
   # NOTE: This is an incredibly naïve function that most likely won't result in
-  # an accurate conversion.  It's only purpose is to convert the characters into
-  # unicode to avoid errors.
+  # an accurate conversion.  It's only purpose is to strip out non-unicode
+  # characters to avoid errors.
   #
   # Ideally, text should be converted into unicode before reaching this
-  # function, this is just a last desperate attempt to avoid an error.
+  # function, this is just a last desperate attempt to avoid an exception.
   defp remove_illegal_characters(text) do
     for char <- String.graphemes(text) do
       if String.valid?(char) do
