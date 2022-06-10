@@ -43,7 +43,50 @@ defmodule Slug do
   defp replace_characters(text) do
     text
     |> String.replace("%", "pc")
-    |> String.replace(~r/[£$€'‘’]/u, "")
+    |> String.replace(~r/['‘’]/u, "")
+    |> replace_currencies()
+  end
+
+  defp replace_currencies(text) do
+    text
+    |> replace_dollar()
+    |> replace_euro()
+    |> replace_pound_sterling()
+  end
+
+  defp replace_dollar(text) do
+    regex = ~r/\$([\d,\.]+(\s?(million|mn|m|billion|bn|b))?)/
+
+    cond do
+      # matches a dollar amount, like $100
+      Regex.match?(regex, text) ->
+        Regex.replace(regex, text, "\\g{1}-dollar")
+      # matches a dollar being used as a substitute S, like hei$t
+      Regex.match?(~r/\$/, text) ->
+        String.replace(text, "$", "s")
+      true ->
+        text
+    end
+  end
+
+  defp replace_euro(text) do
+    regex = ~r/\€([\d,\.]+(\s?(million|mn|m|billion|bn|b))?)/
+
+    if Regex.match?(regex, text) do
+      Regex.replace(regex, text, "\\g{1}-euro")
+    else
+      text
+    end
+  end
+
+  defp replace_pound_sterling(text) do
+    regex = ~r/\£([\d,\.]+(\s?(million|mn|m|billion|bn|b))?)/
+
+    if Regex.match?(regex, text) do
+      Regex.replace(regex, text, "\\g{1}-pound")
+    else
+      text
+    end
   end
 
   # NOTE: This is an incredibly naïve function that most likely won't result in

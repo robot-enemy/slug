@@ -10,6 +10,12 @@ defmodule SlugTest do
       assert Slug.slugify("A Title's Year (2000-2001)") == "a-titles-year-2000-2001"
       assert Slug.slugify("What is \"this\"") == "what-is-this"
       assert Slug.slugify("YOU `crazy` FOOL") == "you-crazy-fool"
+      assert Slug.slugify("The $1,000,000 Question") == "the-1-000-000-dollar-question"
+      assert Slug.slugify("Hei$t") == "heist"
+      assert Slug.slugify("The £1,000,000 Con") == "the-1-000-000-pound-con"
+      assert Slug.slugify("EU to use €2.4bn of carbon credit") == "eu-to-use-2-4bn-euro-of-carbon-credit"
+      assert Slug.slugify("Liverpool close €100m deal") == "liverpool-close-100m-euro-deal"
+      assert Slug.slugify("UK fears locked out €100 billion research") == "uk-fears-locked-out-100-billion-euro-research"
     end
 
     test "when given an empty string, returns nil" do
