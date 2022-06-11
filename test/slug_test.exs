@@ -16,6 +16,9 @@ defmodule SlugTest do
       assert Slug.slugify("EU to use €2.4bn of carbon credit") == "eu-to-use-2-4bn-euro-of-carbon-credit"
       assert Slug.slugify("Liverpool close €100m deal") == "liverpool-close-100m-euro-deal"
       assert Slug.slugify("UK fears locked out €100 billion research") == "uk-fears-locked-out-100-billion-euro-research"
+      assert Slug.slugify("Kwaidan ～Azuma manor story～") == "kwaidan-azuma-manor-story"
+      assert Slug.slugify("Ding！～M・O・N・O～") == "ding-m-o-n-o"
+      assert Slug.slugify("Inazuma Eleven 1･2･3!! Endou Mamoru Densetsu") == "inazuma-eleven-1-2-3-endou-mamoru-densetsu"
     end
 
     test "when given an empty string, returns nil" do

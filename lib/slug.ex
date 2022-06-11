@@ -45,6 +45,7 @@ defmodule Slug do
     |> String.replace("%", "pc")
     |> String.replace(~r/['‘’]/u, "")
     |> replace_currencies()
+    |> replace_non_alphanumberic_characters()
   end
 
   defp replace_currencies(text) do
@@ -87,6 +88,17 @@ defmodule Slug do
     else
       text
     end
+  end
+
+  defp replace_non_alphanumberic_characters(text) do
+    text
+    # replace bullet with hyphen rather than space
+    |> String.replace("･", "-")
+    # replace any non-alphanumeric (or space, hyphen, underscore) with a
+    # space.
+    |> String.replace(~r/[^a-zA-Z\d\s\-\_]/, " ")
+    # replace multiple spaces with a single space
+    |> String.replace(~r/\s+/, " ")
   end
 
   # NOTE: This is an incredibly naïve function that most likely won't result in
